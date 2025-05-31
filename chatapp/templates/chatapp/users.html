@@ -1,0 +1,66 @@
+<!-- user_profile.html -->
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="profile-container">
+    <h1>{{ user.username }}</h1>
+
+    {% if user_profile.avatar %}
+        <div class="avatar-wrapper">
+            <img src="{{ user_profile.avatar.url }}" alt="Аватар пользователя" class="avatar">
+        </div>
+    {% endif %}
+
+            <span class="status-indicator {% if online_status == 'Онлайн' %}online{% else %}offline{% endif %}"></span>
+        {{ online_status }}
+    </p>
+    <p><strong>Дата регистрации:</strong> {{ user_profile.registration_date|date:"d.m.Y H:i" }}</p>
+    <p><strong>Количество отзывов:</strong> {{ user_profile.reviews_count }}</p>
+    <p><strong>Рейтинг продавца:</strong> {{ user_profile.rating }}</p>
+</div>
+
+<style>
+    .profile-container {
+        max-width: 600px;
+        margin: 20px auto;
+        padding: 20px;
+        background-color: #fff;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        border-radius: 8px;
+        text-align: center;
+    }
+
+    .avatar-wrapper {
+        margin-bottom: 15px;
+    }
+
+    .avatar {
+        width: 120px;
+        height: 120px;
+        border-radius: 50%;
+        object-fit: cover;
+        border: 2px solid #ddd;
+    }
+
+    .status-indicator {
+        display: inline-block;
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+        margin-right: 8px;
+    }
+
+    .online {
+        background-color: green;
+    }
+
+    .offline {
+        background-color: gray;
+    }
+
+    p {
+        font-size: 18px;
+        margin: 10px 0;
+    }
+</style>
+{% endblock %}

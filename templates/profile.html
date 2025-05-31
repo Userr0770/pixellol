@@ -1,0 +1,142 @@
+{% extends 'base.html' %}
+{% load custom_filters %}
+{% load static %}
+
+{% block title %}Профиль{% endblock %}
+
+{% block content %}
+
+<h1 style="margin-bottom: 20px;">Профиль</h1>
+<div class="profile-card">
+    {% if user.userprofile.avatar %}
+        <img src="{{ user.userprofile.avatar.url }}" alt="Аватар" class="avatar">
+    {% else %}
+        <img src="{% static 'default_avatar.png' %}" alt="Аватар" class="avatar">
+    {% endif %}
+    <p><strong>Никнейм:</strong> {{ username }}</p>
+    <p><strong>Дата регистрации:</strong> {{ registration_date }}</p>
+</div>
+<hr style="margin: 40px 0;">
+{% for game in games %}
+    <h2>{{ game.name }}</h2>
+
+    {% if game.name == "Clash of Clans" %}
+        <h3>Товары</h3>
+        {% with game_lots|get_item:game as lots %}
+            {% if lots %}
+                <div class="lot-grid">
+                    {% for lot in lots %}
+                        <div class="lot-card">
+                            <h4>{{ lot.title }}</h4>
+                            <p>{{ lot.description|truncatechars:80 }}</p>
+                            <p><strong>Цена:</strong> {{ lot.price }} ₽</p>
+                            <a href="{% url 'edit_lot' lot.id %}" class="edit-icon" title="Редактировать">✏️</a>
+                        </div>
+                    {% endfor %}
+                </div>
+            {% else %}
+                <p>Нет товаров для {{ game.name }}.</p>
+            {% endif %}
+        {% endwith %}
+        <hr>
+    {% endif %}
+
+    {% if game.name == "Brawl Stars" %}
+        <h3>Лоты</h3>
+        {% with game_lots|get_item:game as lots %}
+            {% if lots %}
+                <div class="lot-grid">
+                    {% for lot in lots %}
+                        <div class="lot-card">
+                            <h4>{{ lot.title }}</h4>
+                            <p>{{ lot.description|truncatechars:80 }}</p>
+                            <p><strong>Цена:</strong> {{ lot.price }} ₽</p>
+                            <a href="{% url 'edit_lot' lot.id %}" class="edit-icon" title="Редактировать">✏️</a>
+                        </div>
+                    {% endfor %}
+                </div>
+            {% else %}
+                <p>Нет лотов для {{ game.name }}.</p>
+            {% endif %}
+        {% endwith %}
+        <hr>
+    {% endif %}
+
+    {% if game.name == "Clash Royale" %}
+        <h3>Товары</h3>
+        {% with game_lots|get_item:game as lots %}
+            {% if lots %}
+                <div class="lot-grid">
+                    {% for lot in lots %}
+                        <div class="lot-card">
+                            <h4>{{ lot.title }}</h4>
+                            <p>{{ lot.description|truncatechars:80 }}</p>
+                            <p><strong>Цена:</strong> {{ lot.price }} ₽</p>
+                            <a href="{% url 'edit_lot' lot.id %}" class="edit-icon" title="Редактировать">✏️</a>
+                        </div>
+                    {% endfor %}
+                </div>
+            {% else %}
+                <p>Нет товаров для {{ game.name }}.</p>
+            {% endif %}
+        {% endwith %}
+        <hr>
+    {% endif %}
+
+{% endfor %}
+
+<style>
+    .profile-card {
+        border: 1px solid #ccc;
+        padding: 20px;
+        max-width: 400px;
+        border-radius: 10px;
+        background-color: #fafafa;
+        box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.05);
+        margin-bottom: 30px;
+    }
+
+    .avatar {
+        width: 100px;
+        height: 100px;
+        border-radius: 50%;
+        display: block;
+        margin-bottom: 15px;
+    }
+
+    .lot-grid {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 16px;
+        margin-bottom: 30px;
+    }
+
+    .lot-card {
+        border: 1px solid #ddd;
+        border-radius: 10px;
+        padding: 15px;
+        width: 250px;
+        background-color: #fff;
+        position: relative;
+        box-shadow: 1px 1px 6px rgba(0,0,0,0.05);
+        transition: transform 0.2s ease;
+    }
+
+    .lot-card:hover {
+        transform: scale(1.02);
+    }
+
+    .lot-card h4 {
+        margin-top: 0;
+        font-size: 16px;
+    }
+
+    .edit-icon {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        text-decoration: none;
+        font-size: 18px;
+    }
+</style>
+{% endblock %}

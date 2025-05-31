@@ -1,0 +1,79 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="section-container">
+    <h1>Игры / Clash of Clans</h1>
+
+    <a href="{% url 'create_clash_lot' %}" class="create-btn">+ Добавить предложение</a>
+
+    {% if lots %}
+        <ul class="product-list">
+            {% for lot in lots %}
+                <li class="product-item">
+                    <strong>{{ lot.title }}</strong> — {{ lot.price }} ₽
+                    <p>{{ lot.description }}</p>
+                    <div class="actions">
+                        <a href="{% url 'edit_lot' lot.id %}" class="edit-btn">Редактировать</a>
+                    </div>
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>Лотов пока нет.</p>
+    {% endif %}
+</div>
+
+<style>
+    .section-container {
+        max-width: 800px;
+        margin: 0 auto;
+        padding: 20px;
+    }
+
+    .create-btn {
+        display: inline-block;
+        padding: 8px 14px;
+        background-color: #4CAF50;
+        color: white;
+        text-decoration: none;
+        border-radius: 6px;
+        margin-bottom: 15px;
+    }
+
+    .create-btn:hover {
+        background-color: #45a049;
+    }
+
+    .product-list {
+        list-style: none;
+        padding: 0;
+    }
+
+    .product-item {
+        background: #f9f9f9;
+        padding: 15px;
+        margin-bottom: 10px;
+        border-radius: 8px;
+        box-shadow: 0 0 4px rgba(0,0,0,0.1);
+    }
+
+    .actions {
+        margin-top: 8px;
+    }
+
+    .edit-btn {
+        display: inline-block;
+        padding: 6px 12px;
+        background-color: #007BFF;
+        color: white;
+        border-radius: 5px;
+        text-decoration: none;
+        font-size: 14px;
+        transition: background-color 0.3s;
+    }
+
+    .edit-btn:hover {
+        background-color: #0056b3;
+    }
+</style>
+{% endblock %}

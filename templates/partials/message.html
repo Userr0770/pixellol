@@ -1,0 +1,3 @@
+<div class="message {% if msg.is_answered %}from-support{% else %}from-user{% endif %}">
+    <strong>{% if msg.is_answered %}Поддержка{% else %}Вы{% endif %}:</strong> {{ msg.message }}
+</div>

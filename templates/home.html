@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="content-container">
+    <div class="section">
+        <h2>Игры</h2>
+        <div class="games">
+            <a href="{% url 'brawl_stars_products' %}" class="btn">Brawl Stars</a>
+            <a href="{% url 'clash_lots' %}" class="btn">Clash of Clans</a>
+            <a href="{% url 'cr_lots' %}" class="btn">Clash Royale</a>
+        </div>
+    </div>
+</div>
+
+<style>
+    .btn {
+        display: inline-block;
+        padding: 6px 12px;
+        font-size: 14px;
+        color: white;
+        background-color: #4CAF50;
+        border: none;
+        border-radius: 5px;
+        text-decoration: none;
+        text-align: center;
+        transition: background-color 0.3s;
+    }
+
+    .btn:hover {
+        background-color: #45a049;
+    }
+</style>
+{% endblock %}

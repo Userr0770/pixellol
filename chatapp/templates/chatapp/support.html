@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% block title %}Поддержка{% endblock %}
+
+{% block content %}
+<h2 style="text-align:center; margin-bottom: 20px;">Связь с Поддержкой</h2>
+
+<div id="success-message" style="display: none; position: fixed; top: 20px; right: 20px; background-color: #4CAF50; color: white; padding: 15px 25px; border-radius: 8px; box-shadow: 0 4px 10px rgba(0,0,0,0.2); z-index: 1000;">
+    Сообщение отправлено в поддержку!
+</div>
+
+<form id="supportForm" method="post"
+      style="max-width: 500px; margin: 0 auto; background: #f9f9f9; padding: 20px; border-radius: 12px; box-shadow: 0 4px 8px rgba(0,0,0,0.1);">
+    {% csrf_token %}
+    
+    <label for="subject" style="display:block; margin-bottom: 8px; font-weight: bold;">Тема</label>
+    <input type="text" name="subject" id="subject" placeholder="Например, проблема с лотом" required
+           style="width: 100%; padding: 10px; margin-bottom: 15px; border: 1px solid #ccc; border-radius: 8px;">
+
+    <label for="message" style="display:block; margin-bottom: 8px; font-weight: bold;">Сообщение</label>
+    <textarea name="message" id="message" rows="6" placeholder="Опишите вашу проблему..." required
+              style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 8px; resize: vertical;"></textarea>
+
+    <button type="submit"
+            style="margin-top: 20px; background-color: #28a745; color: white; padding: 12px 20px; border: none; border-radius: 8px; cursor: pointer; width: 100%; font-size: 16px;">
+        Отправить
+    </button>
+</form>
+{% endblock %}

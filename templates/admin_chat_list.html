@@ -1,0 +1,167 @@
+{% extends 'base.html' %}
+
+{% block title %}Список чатов{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h2 class="page-title">Список пользователей с активными чатами</h2>
+
+    <div class="user-list">
+        {% for user in users_with_chats %}
+            <div class="user-item">
+                <a href="{% url 'admin_chat' user.id %}" class="user-link">
+                    <div class="user-info">
+                        <span class="username">{{ user.username }}</span>
+                        <span class="chat-status">Перейти в чат</span>
+                    </div>
+                </a>
+            </div>
+        {% empty %}
+            <p class="no-chats">Нет активных чатов.</p>
+        {% endfor %}
+    </div>
+</div>
+
+{% endblock %}
+
+{% block styles %}
+<style>
+    /* Основной контейнер */
+    .container {
+        max-width: 800px;
+        margin: 30px auto;
+        padding: 20px;
+        background-color: #fff;
+        border-radius: 10px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    }
+
+    /* Заголовок страницы */
+    .page-title {
+        text-align: center;
+        font-size: 24px;
+        margin-bottom: 20px;
+        color: #333;
+    }
+
+    /* Список пользователей */
+    .user-list {
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    /* Элемент списка пользователя */
+    .user-item {
+        background-color: #f9f9f9;
+        padding: 15px;
+        border-radius: 8px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        transition: background-color 0.3s ease;
+    }
+
+    /* Эффект при наведении */
+    .user-item:hover {
+        background-color: #e9ecef;
+    }
+
+    /* Ссылка на чат */
+    .user-link {
+        display: block;
+        width: 100%;
+        color: inherit;
+        text-decoration: none;
+    }
+
+    /* Информация о пользователе */
+    .user-info {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        width: 100%;
+    }
+
+    /* Имя пользователя */
+    .username {
+        font-weight: bold;
+        font-size: 18px;
+        color: #333;
+    }
+
+    /* Статус чата */
+    .chat-status {
+        background-color: #4a90e2;
+        color: white;
+        font-size: 14px;
+        padding: 5px 12px;
+        border-radius: 6px;
+        text-transform: uppercase;
+    }
+
+    /* Сообщение, когда нет чатов */
+    .no-chats {
+        text-align: center;
+        font-size: 18px;
+        color: #777;
+    }
+
+    /* Мобильная версия */
+    @media (max-width: 768px) {
+        .container {
+            padding: 15px;
+            margin: 15px;
+        }
+
+        .page-title {
+            font-size: 20px;
+        }
+
+        .user-item {
+            padding: 12px;
+        }
+
+        .username {
+            font-size: 16px;
+        }
+
+        .chat-status {
+            font-size: 12px;
+            padding: 4px 10px;
+        }
+
+        .no-chats {
+            font-size: 16px;
+        }
+    }
+
+    /* Очень мобильная версия (для экранов менее 480px) */
+    @media (max-width: 480px) {
+        .container {
+            padding: 10px;
+        }
+
+        .page-title {
+            font-size: 18px;
+        }
+
+        .user-item {
+            padding: 10px;
+        }
+
+        .username {
+            font-size: 14px;
+        }
+
+        .chat-status {
+            font-size: 12px;
+            padding: 3px 8px;
+        }
+
+        .no-chats {
+            font-size: 14px;
+        }
+    }
+</style>
+{% endblock %}

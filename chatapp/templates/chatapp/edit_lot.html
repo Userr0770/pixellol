@@ -1,0 +1,72 @@
+{% extends 'base.html' %}
+
+{% block title %}Редактирование лота{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <h2 class="text-center mb-4 text-primary">Редактирование лота</h2>
+
+    <form method="POST" class="form-container">
+        {% csrf_token %}
+        <div class="form-group">
+            {{ form.as_p }}
+        </div>
+        <button type="submit" class="btn btn-success btn-lg w-100">Сохранить изменения</button>
+    </form>
+
+    <!-- Кнопка удаления лота -->
+    <form method="POST" action="{% url 'delete_lot' lot.id %}" style="margin-top: 20px;">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-danger btn-lg w-100">Удалить лот</button>
+    </form>
+
+    <div class="text-center mt-4">
+        <a href="{% url 'profile' %}" class="btn btn-secondary btn-lg w-100">Назад в профиль</a>
+    </div>
+</div>
+
+<style>
+    .form-container {
+        max-width: 600px;
+        margin: 0 auto;
+        padding: 20px;
+        background-color: #f9f9f9;
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    h2 {
+        color: #333;
+    }
+
+    .form-group input,
+    .form-group textarea,
+    .form-group select {
+        width: 100%;
+        padding: 10px;
+        font-size: 14px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        margin-bottom: 10px;
+    }
+
+    .form-group input:focus,
+    .form-group textarea:focus,
+    .form-group select:focus {
+        border-color: #4CAF50;
+        outline: none;
+    }
+
+    .btn {
+        padding: 12px;
+        font-size: 16px;
+        border-radius: 5px;
+        margin-bottom: 10px;
+        cursor: pointer;
+    }
+
+    .btn:hover {
+        opacity: 0.9;
+    }
+</style>
+{% endblock %}

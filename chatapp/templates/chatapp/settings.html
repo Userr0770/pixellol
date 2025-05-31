@@ -1,0 +1,160 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Настройки профиля{% endblock %}
+
+{% block content %}
+<div class="settings-wrapper">
+    <div class="settings-card">
+        <h2 class="settings-title">Настройки профиля</h2>
+
+        <form method="POST" enctype="multipart/form-data" class="settings-form">
+            {% csrf_token %}
+
+            <div class="avatar-section">
+                {% if user.userprofile.avatar %}
+                    <img src="{{ user.userprofile.avatar.url }}" alt="Аватар" class="avatar-preview">
+                    <a href="{% url 'delete_avatar' %}" class="delete-btn" title="Удалить аватар">🗑️</a>
+                {% else %}
+                    <div class="avatar-placeholder">Нет аватара</div>
+                {% endif %}
+
+                <label class="upload-label">Загрузить новый аватар</label>
+                <input type="file" name="avatar" accept="image/*" class="upload-input">
+            </div>
+
+            <div class="input-group">
+                <label>Никнейм</label>
+                <input type="text" value="{{ user.username }}" readonly>
+            </div>
+
+            <div class="input-group">
+                <label>Email</label>
+                <input type="email" value="{{ user.email }}" readonly>
+            </div>
+
+            <div class="input-group">
+                <label>Дата регистрации</label>
+                <input type="text" value="{{ user.date_joined|date:'d.m.Y H:i' }}" readonly>
+            </div>
+
+            <button type="submit" class="save-btn">Сохранить</button>
+        </form>
+    </div>
+</div>
+
+<style>
+    .settings-wrapper {
+        display: flex;
+        justify-content: center;
+        padding: 40px 20px;
+        background: #f2f4f8;
+    }
+
+    .settings-card {
+        background: white;
+        border-radius: 16px;
+        box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+        padding: 30px;
+        width: 100%;
+        max-width: 500px;
+    }
+
+    .settings-title {
+        margin-bottom: 25px;
+        font-size: 24px;
+        color: #333;
+        text-align: center;
+    }
+
+    .avatar-section {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin-bottom: 25px;
+    }
+
+    .avatar-preview {
+        width: 120px;
+        height: 120px;
+        border-radius: 50%;
+        object-fit: cover;
+        border: 3px solid #ddd;
+        box-shadow: 0 0 5px rgba(0,0,0,0.1);
+    }
+
+    .delete-btn {
+        margin-top: 10px;
+        font-size: 20px;
+        text-decoration: none;
+        color: #e74c3c;
+        cursor: pointer;
+    }
+
+    .avatar-placeholder {
+        width: 120px;
+        height: 120px;
+        border-radius: 50%;
+        background: #ddd;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #666;
+        font-size: 14px;
+    }
+
+    .upload-label {
+        margin-top: 15px;
+        font-weight: 500;
+        color: #444;
+    }
+
+    .upload-input {
+        margin-top: 5px;
+        padding: 8px;
+    }
+
+    .input-group {
+        display: flex;
+        flex-direction: column;
+        margin-bottom: 20px;
+    }
+
+    .input-group label {
+        margin-bottom: 5px;
+        font-weight: 500;
+        color: #333;
+    }
+
+    .input-group input {
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 8px;
+        font-size: 16px;
+        background-color: #fafafa;
+    }
+
+    .input-group input[readonly] {
+        background-color: #f1f1f1;
+        color: #777;
+        cursor: not-allowed;
+    }
+
+    .save-btn {
+        background-color: #4CAF50;
+        color: white;
+        padding: 12px;
+        width: 100%;
+        border: none;
+        border-radius: 8px;
+        font-size: 16px;
+        font-weight: bold;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+    }
+
+    .save-btn:hover {
+        background-color: #45a049;
+    }
+</style>
+{% endblock %}
